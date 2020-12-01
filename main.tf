@@ -49,6 +49,12 @@ resource "aws_secretsmanager_secret" "rsm" {
   # Tags
   tags = merge(var.tags, lookup(element(local.rotate_secrets, count.index), "tags"))
 
+  lifecycle {
+      ignore_changes = [
+        name,
+        name_prefix
+      ]
+    }
 
 }
 

@@ -56,7 +56,7 @@ resource "aws_secretsmanager_secret_version" "rsm-sv" {
   secret_id     = aws_secretsmanager_secret.rsm.*.id[count.index]
   secret_string = lookup(element(local.rotate_secrets, count.index), "secret_string")
   secret_binary = lookup(element(local.rotate_secrets, count.index), "secret_binary") != null ? base64encode(lookup(element(local.rotate_secrets, count.index), "secret_binary")) : null
-  # depends_on    = [aws_secretsmanager_secret.rsm]
+  depends_on    = [aws_secretsmanager_secret.rsm]
 }
 
 resource "aws_secretsmanager_secret_version" "rsm-svu" {
@@ -64,7 +64,7 @@ resource "aws_secretsmanager_secret_version" "rsm-svu" {
   secret_id     = aws_secretsmanager_secret.rsm.*.id[count.index]
   secret_string = lookup(element(local.rotate_secrets, count.index), "secret_string")
   secret_binary = lookup(element(local.rotate_secrets, count.index), "secret_binary") != null ? base64encode(lookup(element(local.rotate_secrets, count.index), "secret_binary")) : null
-  # depends_on    = [aws_secretsmanager_secret.rsm]
+  depends_on    = [aws_secretsmanager_secret.rsm]
 
   lifecycle {
     ignore_changes = [
